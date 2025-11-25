@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Gamma Xi – Brotherhood Directory</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --gx-black: #000000;
+      --gx-gold: #CFB53B; /* Old Gold */
+      --gx-soft-gold: #f7f1cf;
+      --gx-card-bg: #111111;
+      --gx-border-subtle: #262626;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at top, #1b1b1b 0, #000000 55%);
+      color: #f5f5f5;
+      line-height: 1.5;
+      padding: 40px 16px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 2.6rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+      text-align: center;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gx-soft-gold);
+    }
+
+    .subtitle {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 32px;
+      color: #d4d4d4;
+      font-size: 0.98rem;
+    }
+
+    .section {
+      margin-top: 40px;
+    }
+
+    .section-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 18px;
+      padding-left: 12px;
+      border-left: 4px solid var(--gx-gold);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--gx-soft-gold);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--gx-card-bg);
+      border-radius: 16px;
+      padding: 18px 16px 16px;
+      border: 1px solid var(--gx-border-subtle);
+      box-shadow: 0 18px 35px rgba(0, 0, 0, 0.7);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        135deg,
+        rgba(207, 181, 59, 0.16),
+        transparent 55%
+      );
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .card-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .card-header {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .avatar {
+      width: 72px;
+      height: 72px;
+      border-radius: 999px;
+      background: #222222;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 2px solid var(--gx-gold);
+    }
+
+    .name-line {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .name {
+      font-weight: 700;
+      font-size: 1.08rem;
+      color: var(--gx-soft-gold);
+    }
+
+    .line {
+      font-size: 0.8rem;
+      color: var(--gx-gold);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+    }
+
+    .meta {
+      font-size: 0.9rem;
+      color: #d4d4d4;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-top: 4px;
+    }
+
+    .meta-label {
+      font-weight: 600;
+      color: var(--gx-soft-gold);
+    }
+
+    .linkedin-btn {
+      margin-top: 10px;
+      align-self: flex-start;
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--gx-gold);
+      background: transparent;
+      color: var(--gx-gold);
+      font-size: 0.8rem;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: all 0.18s ease;
+    }
+
+    .linkedin-btn:hover {
+      background: var(--gx-gold);
+      color: var(--gx-black);
+      transform: translateY(-1px);
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      background: rgba(0, 0, 0, 0.7);
+      color: var(--gx-soft-gold);
+      border: 1px solid rgba(207, 181, 59, 0.4);
+      align-self: flex-start;
+    }
+
+    .tag.active {
+      background: rgba(207, 181, 59, 0.08);
+      border-color: var(--gx-gold);
+      color: var(--gx-gold);
+    }
+
+    .tag.alumni {
+      background: rgba(128, 128, 128, 0.22);
+      border-color: #6b7280;
+      color: #e5e7eb;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #262626;
+      margin: 36px 0 8px;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 24px 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- PAGE HEADER -->
+    <h1>Gamma Xi Brotherhood Directory</h1>
+    <p class="subtitle">
+      The Gamma Xi Chapter of Alpha Phi Alpha Fraternity, Inc is a brotherhood of scholars and professionals. This directory highlights active brothers and alumni who continue to lead in their fields
+    </p>
+
+    <!-- SECTION 1: Recent Alumni -->
+    <section class="section" id="recent-alumni">
+      <h2 class="section-title">Recent Alumni</h2>
+      <div class="grid">
+        <!-- Active Card 1 -->
+        <article class="card">
+          <div class="card-inner">
+            <span class="tag active">Active</span>
+            <div class="card-header">
+              <img
+                src="https://via.placeholder.com/150"
+                alt="Headshot of David Martinez"
+                class="avatar"
+              />
+              <div class="name-line">
+                <div class="name">David Martinez</div>
+                <div class="line">Initiated: SP18</div>
+              </div>
+            </div>
+            <div class="meta">
+              <div>
+                <span class="meta-label">Degree &amp; Grad Year:</span>
+                B.A. Economics ’20
+              </div>
+              <div>
+                <span class="meta-label">Current Role &amp; Company:</span>
+                Financial Analyst @ Goldman Sachs
+              </div>
+            </div>
+            <a
+              class="linkedin-btn"
+              href="https://www.linkedin.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View LinkedIn →
+            </a>
+          </div>
+        </article>
+
+        <!-- Active Card 2 -->
+        <article class="card">
+          <div class="card-inner">
+            <span class="tag active">Active</span>
+            <div class="card-header">
+              <img
+                src="https://via.placeholder.com/150"
+                alt="Headshot of Aaron Butler"
+                class="avatar"
+              />
+              <div class="name-line">
+                <div class="name">Aaron Butler</div>
+                <div class="line">Initiated: FA24</div>
+              </div>
+            </div>
+            <div class="meta">
+              <div>
+                <span class="meta-label">Degree &amp; Grad Year:</span>
+                B.S. Computer Science &amp; Linguistics ’28
+              </div>
+              <div>
+                <span class="meta-label">Current Role &amp; Company:</span>
+                Data Analyst Intern @ WagerWire
+              </div>
+            </div>
+            <a
+              class="linkedin-btn"
+              href="https://www.linkedin.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View LinkedIn →
+            </a>
+          </div>
+        </article>
+
+        <!-- Active Card 3 -->
+        <article class="card">
+          <div class="card-inner">
+            <span class="tag active">Active</span>
+            <div class="card-header">
+              <img
+                src="https://via.placeholder.com/150"
+                alt="Headshot of Jordan Smith"
+                class="avatar"
+              />
+              <div class="name-line">
+                <div class="name">Jordan Smith</div>
+                <div class="line">Initiated: SP23</div>
+              </div>
+            </div>
+            <div class="meta">
+              <div>
+                <span class="meta-label">Degree &amp; Grad Year:</span>
+                B.S. Mechanical Engineering ’26
+              </div>
+              <div>
+                <span class="meta-label">Current Role &amp; Company:</span>
+                Engineering Intern @ Northrop Grumman
+              </div>
+            </div>
+            <a
+              class="linkedin-btn"
+              href="https://www.linkedin.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View LinkedIn →
+            </a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <hr />
+
+    <!-- SECTION 2: DISTINGUISHED ALUMNI -->
+    <section class="section" id="distinguished alumni">
+      <h2 class="section-title">Distinguished Alumni</h2>
+      <div class="grid">
+        <!-- Alumni Card 1 -->
+        <article class="card">
+          <div class="card-inner">
+            <span class="tag alumni">Alumni</span>
+            <div class="card-header">
+              <img
+                src="https://via.placeholder.com/150"
+                alt="Headshot of David Martinez"
+                class="avatar"
+              />
+              <div class="name-line">
+                <div class="name">David Martinez</div>
+                <div class="line">Initiated: SP18</div>
+              </div>
+            </div>
+            <div class="meta">
+              <div>
+                <span class="meta-label">Degree &amp; Grad Year:</span>
+                B.A. Economics ’20
+              </div>
+              <div>
+                <span class="meta-label">Current Role &amp; Company:</span>
+                Financial Analyst @ Goldman Sachs
+              </div>
+            </div>
+            <a
+              class="linkedin-btn"
+              href="https://www.linkedin.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View LinkedIn →
+            </a>
+          </div>
+        </article>
+
+        <!-- Alumni Card 2 -->
+        <article class="card">
+          <div class="card-inner">
+            <span class="tag alumni">Alumni</span>
+            <div class="card-header">
+              <img
+                src="https://via.placeholder.com/150"
+                alt="Headshot of Senay"
+                class="avatar"
+              />
+              <div class="name-line">
+                <div class="name">Senay LastName</div>
+                <div class="line">Initiated: SP20</div>
+              </div>
+            </div>
+            <div class="meta">
+              <div>
+                <span class="meta-label">Degree &amp; Grad Year:</span>
+                B.A. African American Studies ’22
+              </div>
+              <div>
+                <span class="meta-label">Current Role &amp; Company:</span>
+                Founder @ Company Name
+              </div>
+            </div>
+            <a
+              class="linkedin-btn"
+              href="https://www.linkedin.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View LinkedIn →
+            </a>
+          </div>
+        </article>
+
+        <!-- Alumni Card 3 -->
+        <article class="card">
+          <div class="card-inner">
+            <span class="tag alumni">Alumni</span>
+            <div class="card-header">
+              <img
+                src="https://via.placeholder.com/150"
+                alt="Headshot of Marcel"
+                class="avatar"
+              />
+              <div class="name-line">
+                <div class="name">Marcel LastName</div>
+                <div class="line">Initiated: SP21</div>
+              </div>
+            </div>
+            <div class="meta">
+              <div>
+                <span class="meta-label">Degree &amp; Grad Year:</span>
+                B.A. Economics ’23
+              </div>
+              <div>
+                <span class="meta-label">Current Role &amp; Company:</span>
+                Consultant @ Deloitte
+              </div>
+            </div>
+            <a
+              class="linkedin-btn"
+              href="https://www.linkedin.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View LinkedIn →
+            </a>
+          </div>
+        </article>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
